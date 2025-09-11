@@ -1,0 +1,13 @@
+
+L	java:S106"+Replace this use of System.out by a logger.(óÅÉ×úÿÿÿÿ8ôæ‡Ç“3
+n
+java:S1128"LRemove this unused import 'ru.homework.dmisa.service.impl.KruskalMSTFinder'.(ÚÝôíúÿÿÿÿ8Àð Ç“3
+f
+java:S1128"DRemove this unused import 'ru.homework.dmisa.structures.BinaryHeap'.(¡·Ò˜ûÿÿÿÿ8ã¾ŒÇ“3
+M
+java:S1128
+"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8ã¾ŒÇ“3
+O
+java:S1128"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8ã¾ŒÇ“3
+N
+java:S1128"1Remove this unused import 'java.util.Comparator'.(î¹ó¹8ã¾ŒÇ“3
