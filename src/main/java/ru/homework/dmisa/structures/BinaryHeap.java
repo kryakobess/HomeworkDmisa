@@ -62,15 +62,16 @@ public class BinaryHeap<T> {
     }
 
     private void shiftDown(int i) {
-        while (getLeftIndex(i) < array.size()) {
-            int minIndex = getLeftIndex(i);
-            if (getRightIndex(i) < array.size() && comparator.compare(getRight(i), getLeft(i)) < 0) {
-                minIndex = getRightIndex(i);
-            }
-            if (comparator.compare(array.get(i), array.get(minIndex)) > 0) {
-                swapElements(i, minIndex);
-                i = minIndex;
-            }
+        int minIndex = i;
+        if (getLeftIndex(i) < array.size() && comparator.compare(getLeft(i), array.get(i)) < 0) {
+            minIndex = getLeftIndex(i);
+        }
+        if (getRightIndex(i) < array.size() && comparator.compare(getRight(i), array.get(minIndex)) < 0) {
+            minIndex = getRightIndex(i);
+        }
+        if (minIndex != i) {
+            swapElements(i, minIndex);
+            shiftDown(minIndex);
         }
     }
 

@@ -39,6 +39,7 @@ public class KruskalMSTFinder implements MSTFinder {
                             .stream()
                             .map(edge -> new Edge(from, edge.getLeft(), edge.getRight()));
                 })
+                .distinct()
                 .sorted(Comparator.comparing(Edge::weight))
                 .collect(Collectors.toList());
     }

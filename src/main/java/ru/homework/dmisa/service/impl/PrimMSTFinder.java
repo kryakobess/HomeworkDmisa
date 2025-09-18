@@ -2,6 +2,7 @@ package ru.homework.dmisa.service.impl;
 
 import ru.homework.dmisa.service.MSTFinder;
 import ru.homework.dmisa.structures.BinaryHeap;
+import ru.homework.dmisa.structures.Edge;
 import ru.homework.dmisa.structures.Pair;
 
 import java.util.*;
@@ -25,20 +26,25 @@ public class PrimMSTFinder implements MSTFinder {
         Arrays.fill(parent, -1);
 
         // from, to, weight
-        BinaryHeap<List<Integer>> heap = new BinaryHeap<>(Comparator.comparing(List::getLast));
-        heap.add(List.of(-1, startVertex, 0));
+        BinaryHeap<Edge> heap = new BinaryHeap<>(Comparator.comparing(Edge::weight));
+        heap.add(new Edge(-1, startVertex, 0));
+        Set<Edge> visited = new HashSet<>();
 
         while (!heap.isEmpty()) {
             var current = heap.getMinAndRemove();
-            int fromParent = current.getFirst();
-            int currentVertex = current.get(1);
-            int currentWeight = current.getLast();
+            int fromParent = current.from();
+            int currentVertex = current.to();
+            int currentWeight = current.weight();
             if (distances[currentVertex] > currentWeight) {
                 parent[currentVertex] = fromParent;
                 distances[currentVertex] = currentWeight;
             }
+            visited.add(current);
             for (var neighbor : graph.get(currentVertex)) {
-                heap.add(List.of(currentVertex, neighbor.getLeft(), neighbor.getRight()));
+                Edge candidate = new Edge(currentVertex, neighbor.getLeft(), neighbor.getRight());
+                if (!visited.contains(candidate)) {
+                    heap.add(candidate);
+                }
             }
         }
 

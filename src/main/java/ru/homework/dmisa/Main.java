@@ -24,7 +24,7 @@ public class Main {
         graph.put(3, List.of(new Pair<>(1, 19), new Pair<>(2, 51), new Pair<>(4, 31)));
         graph.put(4, List.of(new Pair<>(1, 42), new Pair<>(3, 31)));
 
-        MSTFinder finder = new PrimMSTFinder();
+        MSTFinder finder = new KruskalMSTFinder();
 
         System.out.println(finder.findMst(graph));
     }
