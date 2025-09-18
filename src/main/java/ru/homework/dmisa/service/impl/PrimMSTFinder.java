@@ -62,10 +62,11 @@ public class PrimMSTFinder implements MSTFinder {
             if (parent[i] != -1) {
                 resultGraph.putIfAbsent(parent[i], new ArrayList<>());
                 resultGraph.get(parent[i]).add(new Pair<>(i, distances[i]));
+
+                resultGraph.putIfAbsent(i, new ArrayList<>());
+                resultGraph.get(i).add(new Pair<>(parent[i], distances[i]));
+                sum += distances[i];
             }
-            resultGraph.putIfAbsent(i, new ArrayList<>());
-            resultGraph.get(i).add(new Pair<>(parent[i], distances[i]));
-            sum += distances[i];
         }
         System.out.println("Result sum = " + sum);
         return resultGraph;
