@@ -5,10 +5,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import ru.homework.dmisa.structures.Pair;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class MstArgumentProvider implements ArgumentsProvider {
@@ -77,6 +74,136 @@ public class MstArgumentProvider implements ArgumentsProvider {
                         createGraph(new int[][]{}),
                         List.of(
                             createExpectedMST(new int[][]{})
+                        )
+                ),
+
+                Arguments.of(
+                        createGraph(new int[][]{
+                                {0, 1, 1}, {0, 2, 2}, {0, 3, 3},
+                                {1, 2, 4}, {1, 3, 5},
+                                {2, 3, 6}
+                        }),
+                        List.of(
+                            createExpectedMST(new int[][]{
+                                    {0, 1, 1}, {0, 2, 2}, {0, 3, 3}
+                            })
+                        )
+                ),
+
+// Тест 7: Граф с циклом и тяжелыми ребрами
+                Arguments.of(
+                        createGraph(new int[][]{
+                                {0, 1, 1}, {0, 2, 10},
+                                {1, 2, 2}, {1, 3, 15},
+                                {2, 3, 3}, {2, 4, 20},
+                                {3, 4, 4}
+                        }),
+                        List.of(
+                            createExpectedMST(new int[][]{
+                                    {0, 1, 1}, {1, 2, 2}, {2, 3, 3}, {3, 4, 4}
+                            })
+                        )
+                ),
+
+// Тест 8: Граф с изолированными вершинами (должны быть включены в MST)
+                Arguments.of(
+                        createGraph(new int[][]{
+                                {0, 1, 5}, {2, 3, 3}, {4, 5, 2}
+                        }),
+                        List.of(
+                            createExpectedMST(new int[][]{
+                                    {0, 1, 5}, {2, 3, 3}, {4, 5, 2}
+                            })
+                        )
+                ),
+
+// Тест 9: Большой вес на критическом ребре
+                Arguments.of(
+                        createGraph(new int[][]{
+                                {0, 1, 100}, {0, 2, 1}, {1, 2, 1},
+                                {1, 3, 1}, {2, 3, 100}
+                        }),
+                        List.of(
+                            createExpectedMST(new int[][]{
+                                    {0, 2, 1}, {1, 2, 1}, {1, 3, 1}
+                            })
+                        )
+                ),
+
+// Тест 11: Граф с вершинами, не имеющими индексов 0,1,2...
+                Arguments.of(
+                        createGraph(new int[][]{
+                                {10, 20, 5}, {10, 30, 3}, {20, 30, 4},
+                                {20, 40, 2}, {30, 40, 6}
+                        }),
+                        List.of(
+                            createExpectedMST(new int[][]{
+                                    {10, 30, 3}, {20, 40, 2}, {20, 30, 4}
+                            })
+                        )
+                ),
+
+// Тест 12: Граф где MST не включает минимальное ребро из вершины
+                Arguments.of(
+                        createGraph(new int[][]{
+                                {0, 1, 10}, {0, 2, 20},
+                                {1, 2, 5}, {1, 3, 15},
+                                {2, 3, 30}
+                        }),
+                        List.of(
+                            createExpectedMST(new int[][]{
+                                    {0, 1, 10}, {1, 2, 5}, {1, 3, 15}
+                            })
+                        )
+                ),
+
+// Тест 13: Граф с несколькими возможными MST (одинаковый вес)
+                Arguments.of(
+                        createGraph(new int[][]{
+                                {0, 1, 1}, {0, 2, 1},
+                                {1, 2, 1}, {1, 3, 1},
+                                {2, 3, 1}
+                        }),
+                        Arrays.asList(
+                                createExpectedMST(new int[][]{
+                                        {0, 1, 1}, {0, 2, 1}, {1, 3, 1}
+                                }),
+                                createExpectedMST(new int[][]{
+                                        {0, 1, 1}, {1, 2, 1}, {2, 3, 1}
+                                }),
+                                createExpectedMST(new int[][]{
+                                        {0, 2, 1}, {1, 2, 1}, {1, 3, 1}
+                                }),
+                                createExpectedMST(new int[][]{
+                                        {0, 1, 1}, {0, 2, 1}, {2, 3, 1}
+                                })
+                        )
+                ),
+
+// Тест 14: Граф с одним ребром
+                Arguments.of(
+                        createGraph(new int[][]{
+                                {0, 1, 7}
+                        }),
+                        List.of(
+                            createExpectedMST(new int[][]{
+                                    {0, 1, 7}
+                            })
+                        )
+                ),
+
+// Тест 15: Полностью связный граф с возрастающими весами
+                Arguments.of(
+                        createGraph(new int[][]{
+                                {0, 1, 1}, {0, 2, 2}, {0, 3, 3}, {0, 4, 4},
+                                {1, 2, 5}, {1, 3, 6}, {1, 4, 7},
+                                {2, 3, 8}, {2, 4, 9},
+                                {3, 4, 10}
+                        }),
+                        List.of(
+                            createExpectedMST(new int[][]{
+                                    {0, 1, 1}, {0, 2, 2}, {0, 3, 3}, {0, 4, 4}
+                            })
                         )
                 )
         );

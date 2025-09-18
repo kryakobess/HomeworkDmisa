@@ -28,7 +28,6 @@ class MstTest {
         var res = kruskalMSTFinder.findMst(graph);
 
         assertNotNull(res);
-
         assertEqualsMst(expectedMST, res);
     }
 
@@ -43,7 +42,6 @@ class MstTest {
         var res = kruskalMSTFinder.findMst(graph);
 
         assertNotNull(res);
-
         assertEqualsMst(expectedMST, res);
     }
 
