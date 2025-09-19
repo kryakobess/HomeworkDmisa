@@ -1,5 +1,6 @@
 package ru.homework.dmisa;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 import ru.homework.dmisa.provider.MstArgumentProvider;
@@ -20,9 +21,11 @@ class MstTest {
     @ParameterizedTest
     @ArgumentsSource(MstArgumentProvider.class)
     void testKruskal(
+            String testName,
             Map<Integer, List<Pair<Integer, Integer>>> graph,
             List<Map<Integer, List<Pair<Integer, Integer>>>> expectedMST
     ) {
+        System.out.println(testName);
         KruskalMSTFinder kruskalMSTFinder = new KruskalMSTFinder();
 
         var res = kruskalMSTFinder.findMst(graph);
@@ -34,9 +37,11 @@ class MstTest {
     @ParameterizedTest
     @ArgumentsSource(MstArgumentProvider.class)
     void testPrim(
+            String testName,
             Map<Integer, List<Pair<Integer, Integer>>> graph,
             List<Map<Integer, List<Pair<Integer, Integer>>>> expectedMST
     ) {
+        System.out.println(testName);
         PrimMSTFinder kruskalMSTFinder = new PrimMSTFinder();
 
         var res = kruskalMSTFinder.findMst(graph);
@@ -49,12 +54,10 @@ class MstTest {
             List<Map<Integer, List<Pair<Integer, Integer>>>> expectedCandidates,
             Map<Integer, List<Pair<Integer, Integer>>> actual
     ) {
-        for (var expected : expectedCandidates) {
-            if (getEdges(expected).equals(getEdges(actual))) {
-                return;
-            }
-        }
-        fail();
+        assertThat(expectedCandidates).anyMatch(expected -> {
+            System.out.println("Actual: " + getEdges(actual) + "\n");
+            return getEdges(expected).equals(getEdges(actual));
+        });
     }
 
     private List<Edge> getEdges(Map<Integer, List<Pair<Integer, Integer>>> graph) {
